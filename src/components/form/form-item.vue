@@ -80,10 +80,14 @@ export default {
       });
     },
     onFieldBlur () {
-      this.validate('blur');
+      this.validate('blur', res => {
+        console.log(res)
+      });
     },
     onFieldChange () {
-      this.validate('change');
+      this.validate('change', res => {
+        console.log(res)
+      });
     },
     setRules () {
       this.$on('on-form-blur', this.onFieldBlur);
