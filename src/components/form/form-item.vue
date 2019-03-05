@@ -1,8 +1,11 @@
 <template>
   <div>
-    <label v-if="label">{{ label }}</label>
+    <label v-if="label"
+           :class="{ 'i-form-item-label-required': isRequired }">{{ label }}</label>
     <div>
       <slot></slot>
+      <div v-if="validateState === 'error'"
+           class="i-form-item-message">{{validateMessage}}</div>
     </div>
   </div>
 </template>
@@ -24,6 +27,7 @@ export default {
   },
   data () {
     return {
+      isRequired: false,  // 是否为必填
       validateState: '',  // 校验状态
       validateMessage: '',  // 校验不通过时的提示信息
     }
@@ -46,7 +50,7 @@ export default {
     // 只支持 blur 和 change，所以过滤出符合要求的 rule 规则
     getFilteredRule (trigger) {
       const rules = this.getRules();
-      return rules.filter(rule => !rule.trigger || rule.trigger.indexOf(trigger) !== -1);
+      return rules.filter(rule => !rule.trigger || rule.trigger.includes(trigger));
     },
     /**
      * 校验数据
@@ -80,24 +84,37 @@ export default {
       });
     },
     onFieldBlur () {
-      this.validate('blur', res => {
-        console.log(res)
-      });
+      this.validate('blur');
     },
     onFieldChange () {
-      this.validate('change', res => {
-        console.log(res)
-      });
+      this.validate('change');
     },
     setRules () {
+      let rules = this.getRules();
+      if (rules.length) {
+        rules.every((rule) => {
+          // 如果当前校验规则中有必填项，则标记出来
+          this.isRequired = rule.required;
+        });
+      }
+
       this.$on('on-form-blur', this.onFieldBlur);
       this.$on('on-form-change', this.onFieldChange);
+    },
+    // 重置数据
+    resetField () {
+      this.validateState = '';
+      this.validateMessage = '';
+
+      this.form.model[this.prop] = this.initialValue;
     },
   },
   mounted () {
     // 如果没有传入 prop，则无需校验，也就无需缓存
     if (this.prop) {
       this.dispatch('iForm', 'on-form-item-add', this);
+      // 设置初始值，以便在重置时恢复默认值
+      this.initialValue = this.fieldValue;
       this.setRules();
     }
   },
@@ -107,3 +124,13 @@ export default {
   }
 }
 </script>
+
+<style>
+.i-form-item-label-required:before {
+  content: "*";
+  color: red;
+}
+.i-form-item-message {
+  color: red;
+}
+</style>

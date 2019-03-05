@@ -1,16 +1,20 @@
 <template>
   <div class="home">
-    <Form :model="formValidate"
-          :rules="ruleValidate">
-      <FormItem label="用户名"
-                prop="name">
-        <Input v-model="formValidate.name" />
-      </FormItem>
-      <FormItem label="邮箱"
-                prop="mail">
-        <Input v-model="formValidate.mail" />
-      </FormItem>
-    </Form>
+    <i-form :model="formValidate"
+            :rules="ruleValidate"
+            ref='form'>
+      <i-form-item label="用户名"
+                   prop="name">
+        <i-input v-model="formValidate.name" />
+      </i-form-item>
+      <i-form-item label="邮箱"
+                   prop="mail">
+        <i-input v-model="formValidate.mail" />
+      </i-form-item>
+    </i-form>
+    <div>{{message}}</div>
+    <button @click='handleClick'>check</button>
+    <button @click='handleClear'>clear</button>
   </div>
 </template>
 
@@ -21,9 +25,10 @@ export default {
   name: 'home',
   data () {
     return {
+      message: '',
       formValidate: {
         name: '',
-        mail: ''
+        mail: '',
       },
       ruleValidate: {
         name: [
@@ -36,10 +41,20 @@ export default {
       }
     }
   },
+  methods: {
+    handleClick () {
+      this.$refs.form.validate().then(res => {
+        console.log(res)
+      })
+    },
+    handleClear () {
+      this.$refs.form.resetFields()
+    }
+  },
   components: {
-    Form: () => import('../components/form/form.vue'),
-    FormItem: () => import('../components/form/form-item.vue'),
-    Input: () => import('../components/input/input.vue')
+    iForm: () => import('../components/form/form.vue'),
+    iFormItem: () => import('../components/form/form-item.vue'),
+    iInput: () => import('../components/input/input.vue')
   }
 }
 </script>
