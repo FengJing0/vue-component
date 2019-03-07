@@ -54,7 +54,7 @@ export default {
   components: {
     iForm: () => import('../components/form/form.vue'),
     iFormItem: () => import('../components/form/form-item.vue'),
-    iInput: () => import('../components/input/input.vue')
+    iInput: () => import('../components/input/input.vue'),
   }
 }
 </script>
