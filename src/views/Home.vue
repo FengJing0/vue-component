@@ -11,6 +11,15 @@
                    prop="mail">
         <i-input v-model="formValidate.mail" />
       </i-form-item>
+      <i-form-item label="多选"
+                   prop="check">
+        <i-check-group v-model="formValidate.multiple">
+          <i-checkbox label="option1">选项 1</i-checkbox>
+          <i-checkbox label="option2">选项 2</i-checkbox>
+          <i-checkbox label="option3">选项 3</i-checkbox>
+          <i-checkbox label="option4">选项 4</i-checkbox>
+        </i-check-group>
+      </i-form-item>
     </i-form>
     <div>{{message}}</div>
     <button @click='handleClick'>check</button>
@@ -29,6 +38,7 @@ export default {
       formValidate: {
         name: '',
         mail: '',
+        multiple: ['option1', 'option3'],
       },
       ruleValidate: {
         name: [
@@ -38,11 +48,16 @@ export default {
           { required: true, message: '邮箱不能为空', trigger: 'blur' },
           { type: 'email', message: '邮箱格式不正确', trigger: 'blur' }
         ],
+        check: [
+          { required: true, type: 'array', min: 1, message: 'Choose at least one hobby', trigger: 'change' },
+          { type: 'array', max: 2, message: 'Choose two hobbies at best', trigger: 'change' }
+        ]
       }
     }
   },
   methods: {
     handleClick () {
+      console.log(this.formValidate)
       this.$refs.form.validate().then(res => {
         console.log(res)
       })
@@ -55,6 +70,8 @@ export default {
     iForm: () => import('../components/form/form.vue'),
     iFormItem: () => import('../components/form/form-item.vue'),
     iInput: () => import('../components/input/input.vue'),
+    iCheckbox: () => import('../components/checkbox/checkbox.vue'),
+    iCheckGroup: () => import('../components/checkbox/checkbox-group.vue'),
   }
 }
 </script>
