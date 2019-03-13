@@ -21,6 +21,13 @@
         </i-check-group>
       </i-form-item>
     </i-form>
+    <i-radio :checked='false'>是</i-radio>
+    <i-radio :checked='true'>否</i-radio>
+    <i-radio-group v-model='phone'>
+      <i-radio label='apple'>apple</i-radio>
+      <i-radio label='android'>android</i-radio>
+      <i-radio label='windows'>Windows</i-radio>
+    </i-radio-group>
     <div>{{message}}</div>
     <button @click='handleClick'>check</button>
     <button @click='handleClear'>clear</button>
@@ -35,6 +42,7 @@ export default {
   data () {
     return {
       message: '',
+      phone: 'apple',
       formValidate: {
         name: '',
         mail: '',
@@ -72,6 +80,8 @@ export default {
     iInput: () => import('../components/input/input.vue'),
     iCheckbox: () => import('../components/checkbox/checkbox.vue'),
     iCheckGroup: () => import('../components/checkbox/checkbox-group.vue'),
+    iRadio: () => import('../components/radio/radio.vue'),
+    iRadioGroup: () => import('../components/radio/radio-group.vue'),
   }
 }
 </script>
