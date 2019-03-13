@@ -1,9 +1,10 @@
 // src/views/default-code.js
 const code =
-  `<template>
+    `<template>
     <div>
         <input v-model="message">
         {{ message }}
+        <button @click='click'>click</button>
     </div>
 </template>
 <script>
@@ -12,7 +13,12 @@ const code =
             return {
                 message: ''
             }
-        }
+        },
+            methods:{
+                click(){
+                    console.log('ok')
+                }
+            }
     }
 </script>`;
 

@@ -19,7 +19,7 @@ export default {
       component: null
     }
   },
-   watch: {
+  watch: {
     code () {
       this.destroyCode();
       this.renderCode();
@@ -51,6 +51,7 @@ export default {
         const parseStrToFunc = new Function(this.js)();
 
         parseStrToFunc.template = this.html;
+        console.log(parseStrToFunc)
         const Component = Vue.extend(parseStrToFunc);
         this.component = new Component().$mount();
 
