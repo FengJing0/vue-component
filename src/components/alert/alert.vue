@@ -25,7 +25,7 @@ export default {
       const name = getUuid();
 
       let _notice = Object.assign({
-        name: name
+        name
       }, notice);
 
       this.notices.push(_notice);
