@@ -40,6 +40,11 @@ export default new Router({
       path: '/table-render-slot',
       name: 'table-render-slot',
       component: () => import('./views/table-render-slot.vue')
+    },
+    {
+      path: '/dynamic',
+      name: 'dynamic',
+      component: () => import('./views/dynamic.vue')
     }
   ]
 })
