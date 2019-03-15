@@ -14,6 +14,7 @@
 
 var str = '["a","b"]'
 
-var arr = new Function('return '+str)()
+// var arr = new Function('return '+str)()
+var arr = new Function('a', 'b', 'return a+b')(1, 2)
 
 console.log(arr)
