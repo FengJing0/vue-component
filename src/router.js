@@ -45,6 +45,11 @@ export default new Router({
       path: '/dynamic',
       name: 'dynamic',
       component: () => import('./views/dynamic.vue')
+    },
+    {
+      path: '/tree',
+      name: 'tree',
+      component: () => import('./views/tree.vue')
     }
   ]
 })

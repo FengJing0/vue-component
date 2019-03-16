@@ -42,6 +42,10 @@ export default {
   methods: {
     rebuildData () {
       this.cloneData = deepCopy(this.data);
+      // console.log(this.cloneData)
+    },
+    emitEvent (eventName, data) {
+      this.$emit(eventName, data, this.cloneData);
     }
   }
 }
