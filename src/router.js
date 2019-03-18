@@ -50,6 +50,11 @@ export default new Router({
       path: '/tree',
       name: 'tree',
       component: () => import('./views/tree.vue')
+    },
+    {
+      path: '/slot',
+      name: 'slot',
+      component: () => import('./views/slot.vue')
     }
   ]
 })
