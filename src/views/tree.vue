@@ -1,4 +1,4 @@
-<!-- src/views/alert.vue -->
+
 <template>
   <i-tree :data='data'
           :showCheckbox='true'
